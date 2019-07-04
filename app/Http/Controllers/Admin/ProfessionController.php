@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfessionRequest;
 
 class ProfessionController extends Controller
 {
@@ -28,7 +30,9 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        //
+        $professions = $this->profession->all();
+
+        return view('admin.professions.index',compact('professions'));
     }
 
     /**
@@ -38,7 +42,7 @@ class ProfessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.professions.create');
     }
 
     /**
@@ -47,9 +51,22 @@ class ProfessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(ProfessionRequest $request)
+    {         
+         $dataForm = $request->all();
+
+         DB::beginTransaction();
+         try
+         {
+             $this->profession->create($dataForm);
+             DB::commit(); 
+             return redirect(route('professions.index'))->with('mensagem_sucesso', 'Profissão cadastrada com sucesso!');
+         }
+         catch(\Exception $ex)                   
+         {
+             DB::rollBack();
+             return redirect(route('professions.index'))->withErrors($ex->getMessage())->withInput();
+         } 
     }
 
     /**
@@ -69,9 +86,11 @@ class ProfessionController extends Controller
      * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profession $profession)
+    public function edit($id)
     {
-        //
+        $profession = $this->profession->findOrFail($id);
+
+        return view('admin.professions.edit',compact('profession'));
     }
 
     /**
@@ -81,9 +100,22 @@ class ProfessionController extends Controller
      * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profession $profession)
+    public function update($id,ProfessionRequest $request)
     {
-        //
+        $profession = $this->profession->findOrFail($id);
+        
+        DB::beginTransaction();
+        try
+        {
+            $update = $profession->update($request->all());
+            DB::commit(); 
+            return redirect(route('professions.index'))->with('mensagem_sucesso', 'Profissão atualizado com sucesso!');
+        }
+        catch(\Exception $ex)                   
+        {
+            DB::rollBack();
+            return redirect(route('professions.index'))->withErrors($ex->getMessage())->withInput();
+        }        
     }
 
     /**
@@ -92,8 +124,21 @@ class ProfessionController extends Controller
      * @param  \App\Profession  $profession
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profession $profession)
-    {
-        //
+    public function destroy($id){
+
+        $profession = $this->profession->findOrFail($id);  
+       
+        DB::beginTransaction();
+        try
+        {
+            $profession->delete();
+            DB::commit(); 
+            return redirect(route('professions.index'))->with('mensagem_sucesso', 'Profissão deletada com sucesso!');
+        }
+        catch(\Exception $ex)                   
+        {
+            DB::rollBack();
+            return redirect(route('professions.index', $profession->id))->withErrors($ex->getMessage())->withInput();
+        } 
     }
 }

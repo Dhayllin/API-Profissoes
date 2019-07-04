@@ -11,19 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'web'], function (){
 
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
     Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
     Route::prefix('admin')->group(function (){
         Route::resource('users', 'Admin\UserController');
-       // Route::resource('profs','Admin\PermissionController');
+        Route::resource('professions','Admin\ProfessionController');
     }); 
 
 });

@@ -120,8 +120,8 @@ return [
                 ],  
                 [
                     'text'        => 'Profissões',
-                    'url'         => 'admin/prof',
-                    'icon'        => 'user-graduate'
+                    'url'         => 'admin/professions',
+                    'icon'        => 'user'
                 ],           
             ] 
         ] 
