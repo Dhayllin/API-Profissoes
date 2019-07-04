@@ -20,7 +20,9 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me'); // dados do usário logado
+    Route::post('user', 'AuthController@user'); // dados do usário logado
     Route::post('professions', 'AuthController@professions');  // profissões do usuário logado
+    Route::post('user-professions', 'AuthController@userProfessions');  //  dados do usuário e seus vínculos com profissões
+    Route::post('user-professions-id/{ID}', 'AuthController@userProfessionsId');  //  dados do usuário e seus vínculos com profissões pelo ID
 
 });

@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
+use App\User;
 
 class AuthController extends Controller
 {
+    private $user;
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
+        $this->user = $user;
     }
 
     /**
@@ -38,9 +41,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
-        return response()->json(auth()->user());
+        return  response()->json(auth()->user());
     }
 
     /**
@@ -51,6 +54,22 @@ class AuthController extends Controller
     public function professions()
     {
         return response()->json(auth()->user()->professions);
+    }
+
+    public function userProfessions(){
+       
+        $user = auth()->user();
+        $professions = $user->professions;
+
+        return   response()->json($user);
+    }
+
+    public function userProfessionsId($id){
+       
+        $user = $this->user->findOrFail($id);
+        $professions = $user->professions;
+
+        return   response()->json($user);
     }
 
     /**
