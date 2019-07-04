@@ -27,6 +27,17 @@ composer install --no-scripts
 <br>
 <code>php artisan key:generate</code>
 
+ Ainda no .env configure o acesso ao banco de dados: <br>
+<code>
+DB_CONNECTION=mysql <br>
+DB_HOST=127.0.0.1    <br>
+DB_PORT=3306  <br>
+DB_DATABASE=nome_bd_local <br>
+DB_USERNAME=**** <br>
+DB_PASSWORD=****
+</code>
+
+
 Em seguida você deve configurar o arquivo .env e rodar as migrations com:
 <code> php artisan migrate --seed </code>
  
