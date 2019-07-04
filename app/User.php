@@ -36,5 +36,13 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+    ];     
+
+      /**
+     * The professions that belong to the user.
+     */
+    public function professions()
+    {
+        return $this->belongsToMany('App\Profession','profession_user','user_id','profession_id');
+    }
 }
