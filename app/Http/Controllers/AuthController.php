@@ -6,12 +6,9 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use App\User;
 use App\Profession;
-use Laravel\Scout\Searchable;
 
 class AuthController extends Controller
-{
-    use Searchable;
-    
+{    
     private $user;
     /**
      * Create a new AuthController instance.
@@ -138,6 +135,13 @@ class AuthController extends Controller
     public function storeProfeUser(Request $request){ 
       
         $professions =   auth()->user()->professions()->sync($request->professions);
+
+        return response()->json($professions);
+    }
+
+    public function scopeSearchProfessions(Request $request){ 
+      
+        $professions =  $this->profession->where('name', 'like', '%'.$request->search.'%')->get();
 
         return response()->json($professions);
     }
