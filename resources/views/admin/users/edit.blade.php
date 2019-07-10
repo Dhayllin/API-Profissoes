@@ -10,7 +10,7 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="box col-md-4 ">
             <div class="box-header with-border">
-            <h3 class="box-title"> Informe os dados do Usuário </h3>
+            <h3 class="box-title"> Dados do Usuário </h3>
             <div class="box-tools">
                 <div class="input-group-btn">
                     <button type="button" onclick="window.history.go(-1); return false;"  class="btn btn-success"><i class="fa fa-window-close"></i> fechar</button> 
