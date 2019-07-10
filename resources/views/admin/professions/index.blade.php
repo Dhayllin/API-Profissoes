@@ -9,7 +9,10 @@
 @section('content')
 <div class="box">
     @if(Session::has('mensagem_sucesso'))
-        <div class="alert alert-success">{{ Session::get('mensagem_sucesso')}}</div>
+      <div class="alert alert-success">{{ Session::get('mensagem_sucesso')}}</div>
+    @endif 
+    @if(Session::has('mensagem_erro'))
+      <div class="alert alert-danger">{{ Session::get('mensagem_erro')}}</div>
     @endif 
     <div class="box-header with-border">
       <div class="box-tools">

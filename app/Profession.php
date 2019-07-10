@@ -20,7 +20,7 @@ class Profession extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User','profession_user','user_id','profession_id');
+        return $this->belongsToMany('App\User');
     }
 
 }

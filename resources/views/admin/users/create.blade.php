@@ -65,17 +65,18 @@
                         @endif
                     </div>
                     <div class="form-group has-feedback {{ $errors->has('professions') ? 'has-error' : '' }}">
-                    <select name="professions"id="professions"class="form-control select2" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                        <option value="" selected="selected">Profissão</option>
+                    <select  id="professions" name="professions[]" data-live-search="true" multiple="multiple" class="form-control selectpicker" style="width: 100%; font-color:red" tabindex="-1" aria-hidden="true" >
                         @foreach ($professions as $item)
                         <option value="{{$item->id}}" @if(old('professions') == $item->id) {{ 'selected' }} @endif>{{$item->name}}</option>                           
                         @endforeach
                       </select>
-                    </div>                   
+                    </div>        
                     <button type="submit" class="btn btn-success btn-block btn-flat"  >Salvar</button>
                 </form>              
             </div>      
         </div>
     </div>
 </div>
+<script> 
+</script>
 @stop

@@ -9,8 +9,8 @@
 @section('content')
 <div class="box">
     @if(Session::has('mensagem_sucesso'))
-        <div class="alert alert-success">{{ Session::get('mensagem_sucesso')}}</div>
-    @endif 
+      <div class="alert alert-success">{{ Session::get('mensagem_sucesso')}}</div>
+    @endif    
     @if(count($errors) > 0)
     <div class="alert alert-danger">
         <ul>

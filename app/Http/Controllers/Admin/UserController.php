@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\User;
 use DB;
-use App\Profession;
-use App\Http\Requests\UserRequest;
 use Hash;
+use App\User;
+use App\Profession;
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Mail\resetPasswordRegister;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -60,15 +62,17 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         DB::beginTransaction();
-         try
-         {
-             $this->user->create([
+        Mail::to($request->email,$request->name)->send(new resetPasswordRegister($request));
+        try
+        {
+            $user = $this->user->create([
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
-            ]);
-             DB::commit(); 
-             return redirect(route('users.index'))->with('mensagem_sucesso', 'Usuário cadastrado com sucesso!');
+            ]);                        
+            $user->professions()->sync($request->professions);
+            DB::commit(); 
+            return redirect(route('users.index'))->with('mensagem_sucesso', 'Usuário cadastrado com sucesso!');
          }
          catch(\Exception $ex)                   
          {
@@ -98,8 +102,9 @@ class UserController extends Controller
     {
         $user = $this->user->findOrFail($id); 
         $professions = $this->profession->all(); 
+        $professions_user = $user->professions;
 
-        return view('admin.users.edit',compact('user','professions'));
+        return view('admin.users.edit',compact('user','professions','professions_user'));
     }
 
     /**
@@ -110,17 +115,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    { 
         $user = $this->user->findOrFail($id); 
 
         DB::beginTransaction();
         try
-        {
+        {            
             $user->update([
-               'name' => $request['name'],
-               'email' => $request['email'],
-               'password' => Hash::make($request['password']),
-           ]);
+            'name' => $request['name'],
+            'email' => $request['email'],                   
+            ]);
+            $user->professions()->sync($request->professions);
             DB::commit(); 
             return redirect(route('users.index'))->with('mensagem_sucesso', 'Usuário atualizado com sucesso!');
         }
@@ -144,9 +149,11 @@ class UserController extends Controller
        
         DB::beginTransaction();
         try
-        {
+        {     
+            $user->professions()->detach();
             $user->delete();
             DB::commit(); 
+            
             return redirect(route('users.index'))->with('mensagem_sucesso', 'Usuário deletado com sucesso!');
         }
         catch(\Exception $ex)                   

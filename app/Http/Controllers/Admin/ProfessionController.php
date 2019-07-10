@@ -127,18 +127,23 @@ class ProfessionController extends Controller
     public function destroy($id){
 
         $profession = $this->profession->findOrFail($id);  
-       
-        DB::beginTransaction();
-        try
-        {
-            $profession->delete();
-            DB::commit(); 
-            return redirect(route('professions.index'))->with('mensagem_sucesso', 'Profissão deletada com sucesso!');
-        }
-        catch(\Exception $ex)                   
-        {
-            DB::rollBack();
-            return redirect(route('professions.index', $profession->id))->withErrors($ex->getMessage())->withInput();
-        } 
+        $user  = $profession->users->count();   
+
+        if($user > 0){
+            return redirect(route('professions.index'))->with('mensagem_erro', 'Desculpe, mas a profissão que você deseja excluir é atribuída a um usuário!');
+        }else{
+            DB::beginTransaction();
+            try
+            {
+                $profession->delete();
+                DB::commit(); 
+                return redirect(route('professions.index'))->with('mensagem_sucesso', 'Profissão deletada com sucesso!');
+            }
+            catch(\Exception $ex)                   
+            {
+                DB::rollBack();
+                return redirect(route('professions.index', $profession->id))->withErrors($ex->getMessage())->withInput();
+            } 
+        }        
     }
 }
