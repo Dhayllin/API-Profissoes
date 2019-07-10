@@ -129,7 +129,16 @@ class AuthController extends Controller
     // user_professions.
     // para desvicular basta passar o array sem o id da profissão; 
     // ** Dica: passar select multiplo -> name="professions[]"
-    public function destroyProfeUser(Request $request){        
-        return auth()->user()->professions()->syn($request->professions);
+    /*
+        {
+            "professions":["1","2","3"]
+        }
+    */
+
+    public function storeProfeUser(Request $request){ 
+      
+        $professions =   auth()->user()->professions()->sync($request->professions);
+
+        return response()->json($professions);
     }
 }
