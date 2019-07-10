@@ -24,5 +24,7 @@ Route::group([
     Route::post('professions', 'AuthController@professions');  // profissões do usuário logado
     Route::post('user-professions', 'AuthController@userProfessions');  //  dados do usuário e seus vínculos com profissões
     Route::post('user-professions-id/{ID}', 'AuthController@userProfessionsId');  //  dados do usuário e seus vínculos com profissões pelo ID
+    Route::post('search-professions', 'AuthController@searchProfessions');  //
+    Route::post('destroy-profe-user/{professionsIds}', 'AuthController@destroyProfeUser');  //disvincular profissão do usário logado.
 
 });
