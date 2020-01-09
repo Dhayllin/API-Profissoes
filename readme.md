@@ -1,4 +1,4 @@
-#  encontreApp 
+#  API - Profissões
 
 
 Algumas pastas estão ignoradas pelo .gitignore.
@@ -10,7 +10,7 @@ Levando em consideração que você tenha o <a href="http://www.php.net/"><code>
 
 Vou  considerar que você esteja rodando um sistema operacional Linux/Windows e com o git instalado, faça o seguinte:
  <br>
-<code>  git clone https://gitlab.com/nayracristine/encontrapp/painel.git </code> 
+<code>  git clone https://github.com/Dhayllin/API-Profissoes.git </code> 
 <br>
 
 <strong> Instale as dependências e o framework</strong>
