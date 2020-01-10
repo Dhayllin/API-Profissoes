@@ -23,9 +23,10 @@ composer install --no-scripts
 <br>
 <code> cp .env.example .env </code>
 
-<strong> Crie uma nova chave para a aplicação</strong>
+<strong> Crie uma novas chaves para a aplicação</strong>
 <br>
-<code>php artisan key:generate</code>
+<code>php artisan key:generate</code> e `php artisan jwt:secret`
+
 
  Ainda no .env configure o acesso ao banco de dados: <br>
 <code>
