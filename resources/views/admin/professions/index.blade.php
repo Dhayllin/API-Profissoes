@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'encontreApp - Profissões')
+@section('title', 'API-Profissões')
 
 @section('content_header')
     <h1>Profissões</h1>

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'encontreApp - Usuários')
+@section('title', 'API - Usuários')
 
 @section('content_header')
     <h1>Usuários</h1>

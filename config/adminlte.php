@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'encontreApp',
+    'title' => 'API-Profissões',
 
     'title_prefix' => '',
 
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>encontre</b>App',
+    'logo' => '<b>API-Profissões</b>App',
 
     'logo_mini' => '<b>E</b>App',
 
