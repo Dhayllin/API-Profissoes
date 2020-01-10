@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        
     }
 
     /**
@@ -25,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 }

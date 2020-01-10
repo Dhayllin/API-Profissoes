@@ -7,6 +7,11 @@ use JWTAuth;
 use App\User;
 use App\Profession;
 
+/**
+ * @OA\Server(url="/api"),
+ * @OA\Info(title="Laravelha API", version="0.0.1")
+ */
+
 class AuthController extends Controller
 {    
     private $user;
