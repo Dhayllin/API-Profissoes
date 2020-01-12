@@ -22,19 +22,20 @@ class UserTest extends TestCase
     public function testCreateUser()
     {
         // Create three App\User instances...
-        $users = factory(\App\User::class, 1)->make();
-
+        $users = factory(\App\User::class,3)->create();
+    
         Log::info('TEST: User Create == '.$users); 
-
-        $professions = factory(\App\Profession::class, 1)->make();
-        
-        Log::info('TEST: User Create == '.$professions); 
-        
-
-        
+      
         $this->assertTrue(true);
+    }
 
-        //$this->seeInDatabase('users', ['email' => 'ssally@example.com']); 
+    public function testCreateProfessions(){
 
+        // Create three App\Profession instances...
+        $prefessions = factory(\App\Profession::class,6)->create();
+            
+        Log::info('TEST: Profession Create == '.$prefessions); 
+
+        $this->assertTrue(true);
     }
 }
