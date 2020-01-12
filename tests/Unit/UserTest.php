@@ -10,13 +10,17 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Command;
 
 use App\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
+    // Dá roolback na persistência de dados no banco.
+    use DatabaseTransactions;
+
     /**
      * A basic unit test example.
      *
-     * @return void
+     * @return voidProfissão
      */
 
     public function testCreateUser()
