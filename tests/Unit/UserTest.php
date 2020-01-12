@@ -29,6 +29,8 @@ class UserTest extends TestCase
         $users = factory(\App\User::class,3)->create();
     
         Log::info('TEST: User Create == '.$users); 
+        echo 'TEST: Profession Create SUCCESS';
+        echo "\n";
       
         $this->assertTrue(true);
     }
@@ -39,7 +41,9 @@ class UserTest extends TestCase
         $prefessions = factory(\App\Profession::class,6)->create();
             
         Log::info('TEST: Profession Create == '.$prefessions); 
-
+        echo 'TEST: Profession Create SUCCESS';
+        echo "\n";
+        
         $this->assertTrue(true);
     }
 }
